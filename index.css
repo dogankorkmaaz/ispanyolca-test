@@ -1,0 +1,229 @@
+:root {
+  --primary-bg: #f0f4f8;
+  --secondary-bg: #ffffff;
+  --text-color: #102a43;
+  --primary-accent: #3b82f6;
+  --primary-accent-hover: #2563eb;
+  /* Darkened colors for better contrast with white text */
+  --correct-color: #16a34a;
+  --incorrect-color: #dc2626;
+  --border-color: #cbd5e1;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --feedback-correct-bg: color-mix(in srgb, var(--correct-color) 15%, transparent);
+  --feedback-incorrect-bg: color-mix(in srgb, var(--incorrect-color) 15%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-bg: #1e293b;
+    --secondary-bg: #334155;
+    --text-color: #f1f5f9;
+    --primary-accent: #60a5fa;
+    --primary-accent-hover: #3b82f6;
+    --border-color: #475569;
+    --shadow-color: rgba(0, 0, 0, 0.25);
+    --feedback-correct-bg: color-mix(in srgb, var(--correct-color) 25%, var(--secondary-bg));
+    --feedback-incorrect-bg: color-mix(in srgb, var(--incorrect-color) 25%, var(--secondary-bg));
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+#app {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--secondary-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.api-key-screen, .config-screen, .results-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.api-key-screen p {
+    text-align: center;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 600;
+}
+
+select,
+input[type="password"],
+button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+button {
+    cursor: pointer;
+}
+
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-accent) 25%, transparent);
+}
+
+
+.btn-primary {
+  background-color: var(--primary-accent);
+  color: white;
+  font-weight: 700;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-accent-hover);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+}
+
+.loading-screen {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--border-color);
+    border-top-color: var(--primary-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.quiz-screen .question-header {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.quiz-screen .question-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.quiz-screen .options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quiz-screen .option-btn {
+  border: 2px solid var(--border-color);
+  text-align: left;
+  font-weight: 500;
+}
+
+.quiz-screen .option-btn:not(:disabled):hover {
+  border-color: var(--primary-accent);
+  background-color: var(--primary-bg);
+}
+
+.quiz-screen .option-btn.correct {
+  background-color: var(--correct-color);
+  border-color: var(--correct-color);
+  color: white;
+}
+
+.quiz-screen .option-btn.incorrect {
+  background-color: var(--incorrect-color);
+  border-color: var(--incorrect-color);
+  color: white;
+}
+
+.quiz-screen .option-btn:disabled {
+  cursor: default;
+  opacity: 0.9;
+}
+
+
+.feedback {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 5px solid;
+}
+
+.feedback.correct {
+  background-color: var(--feedback-correct-bg);
+  border-color: var(--correct-color);
+}
+.feedback.incorrect {
+  background-color: var(--feedback-incorrect-bg);
+  border-color: var(--incorrect-color);
+}
+
+.feedback h3 {
+  margin-bottom: 0.5rem;
+}
+
+.next-btn-container {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+.results-screen h2 {
+    font-size: 1.8rem;
+}
+
+.results-screen p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
