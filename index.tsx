@@ -283,20 +283,20 @@ async function fetchQuizQuestions() {
   const model = 'gemini-2.5-flash';
   
   const prompt = `
-    Sen İspanyolca ve Türkçe dillerinde uzman bir dil öğretmenisin. 
-    Aşağıdaki kriterlere göre çoktan seçmeli 10 soruluk bir quiz oluştur:
-    - Öğrenme Yönü: ${quizConfig.from} dilinden ${quizConfig.to} diline.
-    - Seviye: ${quizConfig.level}
-    - Konu: ${quizConfig.topic}
+  Sen İspanyolca ve Türkçe dillerinde uzman bir dil öğretmenisin.
+  Aşağıdaki kriterlere göre, JSON formatında çoktan seçmeli 10 soruluk bir quiz oluştur:
+  - Kaynak Dil: ${quizConfig.from}
+  - Hedef Dil: ${quizConfig.to}
+  - Seviye: ${quizConfig.level}
+  - Konu: ${quizConfig.topic}
 
-    Soru türlerini çeşitlendir: basit kelime/ifade çevirisi, boşluk doldurma ("Yo ___ estudiante." gibi) ve basit diyalog tamamlama ("Soru: ¿Cómo estás? Cevap: ___") gibi farklı türlerde sorular sor.
-
-    Her soru için:
-    1. Soruyu "${quizConfig.from}" dilinde sor.
-    2. "${quizConfig.to}" dilinde 4 adet seçenek sun. Biri doğru, üçü ise mantıklı çeldiriciler olsun.
-    3. Doğru cevabın hangisi olduğunu belirt.
-    4. Doğru cevabın neden doğru olduğunu ve varsa ilgili gramer kuralını "${quizConfig.to}" dilinde kısaca açıkla.
-  `;
+  ÇOK ÖNEMLİ KURALLAR:
+  1.  Soru türlerini çeşitlendir: basit kelime/ifade çevirisi, boşluk doldurma ve diyalog tamamlama gibi farklı türler kullan.
+  2.  **Eğer soru bir kelime/ifade çevirisi ise:** Soruyu "${quizConfig.from}" dilinde sor ve cevap seçeneklerini "${quizConfig.to}" dilinde ver.
+  3.  **Eğer soru boşluk doldurma veya diyalog tamamlama ise:** Hem soruyu hem de 4 cevap seçeneğini **AYNI DİLDE**, yani "${quizConfig.from}" dilinde oluştur. Bu tür sorularda asla iki farklı dil kullanma.
+  4.  Her soru için bir doğru cevap ve üç mantıklı çeldirici oluştur.
+  5.  Her soru için, doğru cevabın neden doğru olduğunu açıklayan kısa bir metni "${quizConfig.to}" dilinde yaz.
+`;
   
   const questionSchema = {
     type: Type.OBJECT,
